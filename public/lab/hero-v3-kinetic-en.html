@@ -1,0 +1,994 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linqo Landing EN</title>
+<style>
+
+@font-face{font-family:"Pretendard";src:url("fonts/PretendardVariable.woff2") format("woff2");font-weight:45 920;font-display:swap}
+:root{
+  interpolate-size:allow-keywords;
+  --ink:#0b0c0f;--panel:#16171b;--raised:#1d1d22;--line:#e9e6f02b;--paper:#f0ece4;--white:#f9f6ef;
+  --muted:#b2b1b8;--subtle:#8f8b9b;--accent:#6b7bff;--accent-tint:#6b7bff1f;--accent-line:#6b7bff59;
+  --mint:#3ee0a8;--sky:#38c6f4;--pink:#ff6fae;--amber:#ffb547;--coral:#ff7a5c;--violet:#a98bff;--lime:#b8ef4a;
+  --gutter:max(80px,calc((100% - 1200px) / 2)); /* caps content width at 1200px */
+  --font:"Pretendard",Inter,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+/* film grain over the whole page */
+body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+html,body{background:var(--ink);color:var(--white);font-family:var(--font);-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden;word-break:keep-all}
+a{color:inherit;text-decoration:none}
+
+/* nav — V3 */
+.nav{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;column-gap:24px;align-items:center;height:72px;padding:0 var(--gutter);border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--ink) 86%,transparent);backdrop-filter:blur(10px)}
+.brand{display:flex;align-items:center;justify-self:start}
+.brand img{display:block;height:22px;width:auto}
+.links{display:flex;justify-content:center;gap:36px;font-size:15px;font-weight:500;color:var(--muted)}
+.nav-act{justify-self:end;white-space:nowrap;display:flex;justify-content:flex-end;align-items:center;gap:20px;font-size:15px;font-weight:500}
+.lang{display:inline-flex;padding:3px;border-radius:999px;background:#ffffff0f;font-size:13px;font-weight:600;letter-spacing:.02em}
+.lang a{position:relative;padding:5px 10px;border-radius:999px;color:var(--muted);transition:color .2s,background .2s}
+.lang a::after{content:"";position:absolute;inset:-9px -1px}
+.lang a:hover{color:var(--white)}
+.lang a[aria-current]{background:#ffffff1f;color:var(--white)}
+.nav .ls{display:none}
+@media (max-width:1200px){.links{gap:24px}.nav-act{gap:14px}}
+@media (max-width:420px){.nav .lf{display:none}.nav .ls{display:inline}.nav-act{gap:10px}.lang a{padding:5px 8px}}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;font-weight:600;white-space:nowrap}
+.btn-paper{background:var(--paper);color:var(--ink);transition:transform .2s,box-shadow .2s}
+.btn-paper:hover{transform:translateY(-1px);box-shadow:0 8px 24px #0006}
+.btn .g{width:1.15em;height:1.15em;flex-shrink:0}
+.nav .btn{height:40px;padding:0 16px;font-size:14px}
+
+/* hero — V3 layout */
+.hero{position:relative;min-height:calc(100vh - 72px);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:64px;padding:96px var(--gutter) 72px;overflow:clip}
+.bg{position:absolute;inset:0;pointer-events:none}
+.bg span{position:absolute;color:var(--raised);font-weight:700;line-height:1;letter-spacing:-.04em;white-space:nowrap;font-size:clamp(72px,10.4vw,150px)}
+.bg .w1{left:-40px;top:72px;rotate:-4deg}
+.bg .w2{right:-60px;top:300px;rotate:3deg}
+.bg .w3{left:-30px;bottom:-24px;rotate:-2deg}
+.bg .w4{left:-70px;top:380px;rotate:-3deg;font-size:clamp(60px,8.3vw,120px)}
+.bg .w5{right:40px;bottom:60px;rotate:4deg}
+.copy{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:32px;width:100%;max-width:1312px}
+
+.headline{display:flex;flex-direction:column;align-items:center;font-size:clamp(44px,7.8vw,112px);font-weight:700;line-height:1.05;letter-spacing:-.045em}
+.row{display:flex;align-items:center;justify-content:center;gap:.21em;white-space:nowrap;will-change:transform}
+.row.two{position:relative;color:var(--accent)}
+.word{display:inline-block}
+.ch{display:inline-block;will-change:transform}
+.ws{display:inline-block;width:.26em}
+
+.pill{--pc:#3ee0a8;display:inline-flex;align-items:center;gap:.14em;height:.82em;padding:0 .28em;border-radius:999px;background:color-mix(in srgb,var(--pc) 16%,transparent);border:1px solid color-mix(in srgb,var(--pc) 45%,transparent);rotate:-3deg;overflow:hidden}
+.wave{display:flex;align-items:center;gap:.05em;height:.36em}
+.wave b{display:block;width:.054em;height:100%;border-radius:9px;background:var(--pc);transform-origin:50% 50%}
+.pill-txt{position:relative;display:inline-block;height:1em;line-height:1;font-size:.39em;color:var(--pc);letter-spacing:-.03em}
+.pill-txt span{position:absolute;left:0;top:0;white-space:nowrap}
+
+.fix{position:absolute;right:calc(100% + 18px);top:50%;margin-top:-18px;display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:8px;background:var(--raised);border:1px solid var(--line);rotate:-5deg;font-size:18px;letter-spacing:0;line-height:1;z-index:3}
+.fix .wrong{position:relative;color:var(--subtle);font-weight:600}
+.fix .wrong::after{content:"";position:absolute;left:-2px;right:-2px;top:52%;height:2px;background:#ff8a80;transform:scaleX(var(--strike,0));transform-origin:left}
+.fix svg{width:16px;height:16px;color:var(--muted)}
+.fix .right{color:var(--accent);font-weight:700}
+
+.tile{--tc:#6b7bff;display:inline-grid;place-items:center;width:.82em;height:.82em;border-radius:.15em;background:var(--tc);color:var(--ink);rotate:4deg;perspective:400px}
+.tile span{font-size:.5em;line-height:1;display:block;backface-visibility:hidden}
+
+.sub{max-width:800px;text-align:center;color:var(--muted);font-size:19px;line-height:1.6}
+.actions{display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:12px}
+.actions .row-b{display:flex;gap:12px}
+.actions .btn{height:52px;padding:0 24px;font-size:16px}
+
+.replay{position:fixed;right:20px;bottom:20px;z-index:30;height:40px;padding:0 16px;border-radius:999px;background:var(--panel);border:1px solid var(--line);color:var(--white);font:600 14px var(--font);cursor:pointer}
+
+@media (max-width:860px){
+  .nav{display:flex;padding:0 20px}.links,.nav-act>a:first-child{display:none}.brand,.nav-act{width:auto}.nav-act{margin-left:auto}
+  .hero{padding:64px 20px 48px;gap:40px}
+  .row{flex-wrap:wrap;white-space:normal}
+  .fix{right:auto;left:50%;top:-34px;margin:0 0 0 -80px;font-size:14px;padding:6px 10px}
+  .row.two{margin-top:40px}
+  .sub{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){.replay{display:none}}
+
+/* ===== V3 sections ===== */
+.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.wrap{padding:96px var(--gutter)}
+.bt{border-top:1px solid var(--line)}
+.panel-bg{background:var(--panel)}
+.acc{color:var(--accent)}
+.mut{color:var(--muted)}
+.sub-txt{color:var(--subtle)}
+.lead{color:var(--muted);font-size:19px;line-height:1.6;text-wrap:pretty}
+.sec-head{display:flex;flex-direction:column;gap:16px}
+.mid{align-items:center;text-align:center}
+.h2{font-size:clamp(30px,3.9vw,56px);font-weight:700;line-height:1.15;letter-spacing:-.035em;text-wrap:balance}
+.verify{display:inline-block;border:1px solid #f5b84a;color:#f5b84a;font-size:12px;font-weight:600;border-radius:2px;padding:2px 6px;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:8px;background:var(--accent-tint);border:1px solid var(--accent-line);font-size:13px;font-weight:500}
+.glow{position:absolute;border-radius:50%;filter:blur(48px);pointer-events:none;background:radial-gradient(circle at 50% 50%,var(--accent-line) 0%,transparent 70%)}
+.raised{background:var(--raised)}
+.tag[style]{background:color-mix(in srgb,var(--lc) 16%,transparent);color:var(--lc)}
+.tag{background:var(--raised);color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.05em;border-radius:2px;padding:2px 6px}
+
+/* marquee band */
+.mq{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:40px 0;overflow:hidden}
+.mq-track{display:flex;align-items:center;gap:40px;width:max-content;font-size:72px;font-weight:700;line-height:1;letter-spacing:-3px;white-space:nowrap}
+.mq-track .dot{color:var(--line)}
+
+/* what it does */
+.wid{display:flex;flex-direction:column;align-items:center;gap:64px;overflow:clip}
+.conv{width:100%;height:calc(100vh - 72px);min-height:640px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:64px;padding:24px 0}
+.wid-head{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.wid-title{white-space:nowrap}
+.stage{position:relative;width:100%;display:flex;justify-content:center;align-items:flex-start}
+.stage .glow{width:1200px;height:640px;left:50%;top:50%;transform:translate(-50%,-50%)}
+.screen-fit{position:relative;z-index:2;max-width:100%;transform:scale(var(--fit,1));transform-origin:top center}
+.screen{position:relative;width:1000px;max-width:100%;background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.3)}
+.tb{display:flex;align-items:center;gap:14px;height:56px;padding:0 20px;border-bottom:1px solid var(--line)}
+.tb-title{padding-left:8px;font-size:14px;font-weight:600}
+.dots{display:flex;gap:7px}.dots i{width:11px;height:11px;border-radius:50%;background:var(--line)}
+.rec{display:flex;align-items:center;gap:8px;height:30px;padding:0 12px;border-radius:999px;background:var(--accent-tint);font-size:13px}
+.rec i{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.sbody{display:flex}
+.side{width:288px;flex-shrink:0;border-right:1px solid var(--line);padding:24px;display:flex;flex-direction:column;gap:20px;font-size:13px}
+.file{display:flex;align-items:center;gap:10px;padding:12px;border-radius:8px;background:var(--raised)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.tp{flex:1;display:flex;flex-direction:column}
+.lines{height:300px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;padding:0 36px 24px;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 22%);mask-image:linear-gradient(to bottom,transparent,#000 22%)}
+.ln{flex-shrink:0;overflow:hidden}
+.ln-in{display:flex;gap:16px;padding-top:22px}
+.av{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:var(--raised);display:grid;place-items:center;font-size:12px;font-weight:600}
+.lc{display:flex;flex-direction:column;gap:6px;flex:1}
+.lm{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
+.lm small{font-size:13px;color:var(--subtle);font-weight:400}
+.orig{font-size:17px;line-height:1.55}
+.cw{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent-line)}
+.tr{color:var(--muted);font-size:16px;line-height:1.55}
+.wave-row{display:flex;align-items:center;gap:12px;padding:0 36px 24px;font-size:13px;color:var(--subtle)}
+.wbars{display:flex;align-items:center;gap:3px;height:24px}
+.wbars b{width:3px;border-radius:9px;background:var(--accent)}
+.tbar{display:flex;align-items:center;gap:16px;height:60px;padding:0 36px;border-top:1px solid var(--line);font-size:14px}
+.sel{display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:8px;background:var(--raised);font-weight:600}
+.tabs{display:flex;gap:4px;padding:3px;border:1px solid var(--line);border-radius:8px}
+.tabs span{height:26px;padding:0 10px;display:flex;align-items:center;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.05em}
+.bub{position:absolute;z-index:3;width:270px;display:flex;flex-direction:column;gap:8px;padding:16px 20px;background:var(--raised);border:1px solid var(--accent-line);border-radius:16px 16px 16px 6px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.bub .who{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--muted)}
+.bub{border-color:color-mix(in srgb,var(--lc,var(--accent)) 40%,transparent)}
+.bub .who b{background:color-mix(in srgb,var(--lc,var(--accent)) 16%,transparent);color:var(--lc,var(--accent));font-size:12px;letter-spacing:.05em;border-radius:6px;padding:2px 6px}
+.bub p{font-size:16px;line-height:1.45}
+
+/* context injection */
+.ctx{position:relative;display:flex;flex-direction:column;gap:56px;overflow:clip;background:var(--panel)}
+.ctx>.glow{width:1100px;height:560px;left:50%;top:58%;transform:translate(-50%,-50%)}
+.ctx-head{position:relative;z-index:2;display:flex;flex-direction:column;gap:20px}
+.cx{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;background:var(--ink);border:1px solid var(--accent-line);border-radius:16px;overflow:hidden;box-shadow:0 0 80px var(--accent-tint)}
+.cx-col{display:flex;flex-direction:column;gap:24px;padding:32px 40px}
+.cx-col.no{border-right:1px solid var(--line);will-change:filter,opacity}
+.cx-col.yes{position:relative}
+.cx-col.yes::before{content:"";position:absolute;inset:0;background:var(--accent-tint);opacity:var(--on,0);pointer-events:none}
+.cx-col>*{position:relative}
+.colh{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600}
+.colh i{width:8px;height:8px;border-radius:50%}
+.cx-foot{margin-top:auto;display:flex;align-items:center;gap:8px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;font-weight:600}
+.cx-col.no .cx-foot{color:#ff8a80}
+.cx-col.yes .cx-foot{color:var(--accent);opacity:var(--on,0)}
+.cap{color:var(--subtle);font-size:13px;font-weight:600;letter-spacing:.025em}
+.blk{display:flex;flex-direction:column;gap:8px}
+.t19{font-size:19px;line-height:1.65}.t17{font-size:17px;line-height:1.65}
+.wr{color:#ff8a80;text-decoration:underline wavy rgba(255,138,128,.7);text-underline-offset:5px;text-decoration-thickness:1.5px}
+.fx.bad{color:#ff8a80;font-weight:500;text-decoration:line-through;text-decoration-thickness:1.5px;text-decoration-color:#ff8a8099;text-shadow:none}
+.fx.ok{display:inline-block;animation:fxpop .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes fxpop{from{opacity:0;transform:translateY(.45em) scale(.96);filter:blur(3px)}}
+.cx-col.yes .scan{position:absolute;left:0;right:0;top:0;height:120px;pointer-events:none;opacity:0;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--accent) 22%,transparent) 70%,var(--accent) 100%);border-bottom:1px solid var(--accent);mix-blend-mode:screen}
+.cx-foot .cnt{font-weight:700}
+.fx{--g:0;font-weight:600;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px;text-decoration-color:color-mix(in srgb,var(--accent) calc(var(--g) * 100%),transparent);text-shadow:0 0 calc(var(--g) * 14px) var(--accent)}
+.ctx-top{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;gap:48px}
+.ctx-feats{list-style:none;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;max-width:520px}
+.ctx-feats li{--c:var(--accent);display:flex;align-items:center;gap:7px;height:36px;padding:0 14px;border-radius:999px;background:color-mix(in srgb,var(--c) 12%,transparent);border:1px solid color-mix(in srgb,var(--c) 32%,transparent);color:var(--c);font-size:14px;font-weight:600;white-space:nowrap}
+.ctx-feats .i{font-size:15px}
+
+/* MCP */
+.mcp{position:relative;display:flex;align-items:stretch;gap:64px;overflow:clip}
+.mcp>.glow{width:900px;height:700px;top:50%;right:-160px;transform:translateY(-50%)}
+.mcp-copy{position:relative;z-index:2;width:calc(50% - 64px);flex-shrink:0;display:flex;flex-direction:column;justify-content:center;gap:74px}
+.ask{display:flex;flex-direction:column;align-items:stretch;gap:18px;width:fit-content;max-width:100%}
+.ask button{display:block;padding:0;background:none;border:0;color:var(--muted);font:500 15px var(--font);text-align:left;cursor:pointer}
+.ask small{display:flex;align-items:center;justify-content:center;gap:6px;flex-shrink:0;min-width:82px;height:24px;padding:0 9px;border-radius:999px;background:#ffffff0d;color:var(--subtle);font-size:12px;font-weight:600;transition:color .3s,background .3s}
+.ask small::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--b);opacity:.5;transition:opacity .3s}
+.ask .q{display:flex;align-items:center;gap:10px;padding:10px 10px 10px 10px;border-radius:20px 20px 20px 6px;background:linear-gradient(180deg,#ffffff0f,#ffffff05);border:1px solid transparent;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);line-height:1.45;transition:background .3s,border-color .3s,color .3s,transform .3s cubic-bezier(.2,.8,.2,1)}
+.ask .q b{margin-left:auto;display:grid;place-items:center;flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--raised);color:var(--subtle);font-size:14px;transition:background .3s,color .3s}
+.ask button:hover .q{color:var(--white);transform:translateX(3px)}
+.ask button[aria-pressed="true"] small{color:var(--b);background:color-mix(in srgb,var(--b) 18%,transparent)}
+.ask button[aria-pressed="true"] small::before{opacity:1;box-shadow:0 0 8px var(--b)}
+.ask button[aria-pressed="true"] .q{color:var(--white);background:color-mix(in srgb,var(--b) 18%,transparent);border-color:color-mix(in srgb,var(--b) 50%,transparent);box-shadow:inset 0 1px 0 #ffffff1a,0 10px 32px color-mix(in srgb,var(--b) 18%,transparent)}
+.ask button[aria-pressed="true"] .q b{background:var(--b);color:var(--bt,#fff)}
+.chat{position:relative;z-index:2;flex:1;min-width:0;display:flex;flex-direction:column;height:560px;background:var(--panel);border:1px solid var(--accent-line);border-radius:16px;overflow:hidden;box-shadow:0 32px 96px rgba(0,0,0,.5)}
+.chat-h{display:flex;align-items:center;gap:12px;height:56px;padding:0 16px;border-bottom:1px solid var(--line)}
+.apps{display:flex;gap:4px;padding:3px;border-radius:9px;background:var(--ink);border:1px solid var(--line)}
+.apps span{height:28px;display:flex;align-items:center;gap:7px;padding:0 12px;border-radius:6px;color:var(--subtle);font-size:13px;font-weight:600;transition:background .3s,color .3s}
+.apps span::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--b);opacity:.55;transition:opacity .3s,box-shadow .3s}
+.apps span.on{background:color-mix(in srgb,var(--b) 16%,transparent);color:var(--b)}
+.apps span.on::before{opacity:1;box-shadow:0 0 8px var(--b)}
+.conn{margin-left:auto;display:flex;align-items:center;gap:8px;height:30px;padding:0 12px;border-radius:999px;background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);color:var(--accent);font-size:12px;font-weight:600}
+.conn i{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 var(--accent);animation:ping 1.8s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 60%,transparent)}100%{box-shadow:0 0 0 8px transparent}}
+.chat-b{flex:1;min-height:0;overflow:hidden;padding:24px;display:flex;flex-direction:column;gap:18px}
+.chat-b>*{flex-shrink:0}
+.ub{align-self:flex-end;max-width:85%;background:var(--raised);border-radius:16px 16px 4px 16px;padding:12px 16px;font-size:15px;line-height:1.55}
+.tool{border:1px solid var(--accent-line);border-radius:12px;background:color-mix(in srgb,var(--accent) 8%,var(--ink));overflow:hidden}
+.tool-h{display:flex;align-items:center;gap:10px;height:40px;padding:0 14px;font-size:13px;font-weight:600;white-space:nowrap}
+.tool-h .lq{display:grid;place-items:center;width:22px;height:22px;border-radius:6px;background:var(--accent);color:var(--ink);font-size:12px;font-weight:800}
+.tool-h small{color:var(--subtle);font-weight:500}
+.tool-h .st{margin-left:auto;display:flex;align-items:center;gap:6px;color:var(--subtle);font-weight:500}
+.spin{width:12px;height:12px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--accent);animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tool-r{display:flex;flex-direction:column;gap:6px;padding:0 14px 12px}
+.tool-r div{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:var(--panel);font-size:13px}
+.tool-r div .i{color:var(--accent);font-size:14px}
+.tool-r small{margin-left:auto;color:var(--subtle)}
+.ans{display:flex;flex-direction:column;gap:10px;font-size:15px;line-height:1.65}
+.ans ul{list-style:none;display:flex;flex-direction:column;gap:6px;padding-left:14px;border-left:2px solid var(--accent-line);color:var(--muted);font-size:14px}
+.ans .w{display:inline}
+.src{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--subtle)}
+.src span{height:24px;display:flex;align-items:center;padding:0 9px;border-radius:6px;background:var(--raised);color:var(--muted)}
+.cin{display:flex;align-items:center;height:52px;margin:0 16px 16px;padding:0 8px 0 16px;border:1px solid var(--line);border-radius:12px;color:var(--subtle);font-size:15px}
+.cin span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cin span.typing{color:var(--white)}
+.cin b{width:34px;height:34px;border-radius:9px;background:var(--raised);display:grid;place-items:center;color:var(--white);transition:background .2s}
+.cin b.go{background:var(--accent)}
+
+/* use cases */
+.uc{position:relative;display:flex;flex-direction:column;gap:56px;overflow:clip}
+.uc>.glow{width:1300px;height:620px;left:50%;top:62%;transform:translate(-50%,-50%);background:radial-gradient(circle,var(--accent-tint) 0%,transparent 70%)}
+.uc-head{position:relative;z-index:2;display:flex;flex-direction:column;gap:24px}
+.cards{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.card{display:flex;flex-direction:column;gap:24px;padding:32px;background:var(--panel);border:1px solid var(--line);border-radius:16px}
+.card-h{display:flex;flex-direction:column;gap:12px}
+.badge{align-self:flex-start;display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:var(--raised);color:var(--muted);font-size:13px;font-weight:500}
+.card-h h3{font-size:56px;font-weight:700;line-height:1;letter-spacing:-.045em}
+.card-h p{color:var(--muted);font-size:18px}
+.mock{height:290px;background:var(--ink);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.srcbar{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;background:var(--raised);color:var(--muted);font-size:13px}
+.ml{display:flex;align-items:flex-start;gap:10px}
+.ml .av{width:28px;height:28px;font-size:11px;font-weight:700;color:var(--muted)}
+.ml.on .av{background:var(--accent-tint);color:var(--accent)}
+.ml small{display:flex;align-items:center;gap:6px;color:var(--subtle);font-size:12px;margin-bottom:2px;transition:color .3s}
+.ml.on small{color:var(--accent)}
+.mfeed .ml{flex-shrink:0;overflow:hidden}
+.mfeed{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-start;gap:10px;overflow:hidden}
+.eq{display:none;align-items:flex-end;gap:2px;height:10px}
+.ml.on .eq{display:inline-flex}
+.eq b{width:2px;height:100%;border-radius:1px;background:currentColor;transform-origin:bottom;animation:eq .9s ease-in-out infinite}
+.eq b:nth-child(2){animation-delay:-.3s}.eq b:nth-child(3){animation-delay:-.6s}
+@keyframes eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.live{display:inline-block;width:6px;height:6px;margin-right:6px;border-radius:50%;background:#ff5a5a;vertical-align:1px;animation:ping 1.8s ease-out infinite;box-shadow:0 0 0 0 #ff5a5a99}
+.stagebar .aud-n{font-weight:600;color:var(--white);font-variant-numeric:tabular-nums}
+.ml p{font-size:14px;line-height:1.45}
+.pres-row{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}
+.pres-row .av{width:30px;height:30px;font-size:11px;background:var(--accent-tint);color:var(--accent);font-weight:700}
+.pres-row small{display:block;color:var(--accent);font-size:12px;font-weight:400}
+.st-b{flex:1;display:flex;gap:16px;min-height:0}
+.st-l{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.join{display:flex;align-items:center;gap:8px;margin-top:4px;color:var(--muted);font-size:12px}
+.join svg{width:22px;height:22px;color:var(--white)}
+.phone{width:148px;flex-shrink:0;display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:22px;background:var(--panel);border:1px solid var(--accent-line);box-shadow:0 0 32px var(--accent-tint)}
+.phone .notch{width:48px;height:6px;align-self:center;border-radius:9px;background:var(--line)}
+.phone .lc2{align-self:flex-start;background:var(--accent-tint);color:var(--accent);font-size:11px;font-weight:600;border-radius:6px;padding:2px 8px}
+.phone .old{color:var(--subtle);font-size:12px;line-height:1.45}
+.phone .new{font-size:13px;line-height:1.45}
+.stagebar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:8px;background:var(--raised);font-size:13px;font-weight:600}
+.stagebar small{color:var(--muted);font-size:12px;font-weight:400}
+.lr{display:flex;align-items:center;gap:12px;font-size:13px}
+.lr span:first-child{width:84px;flex-shrink:0}
+.lr .trk{flex:1;height:8px;border-radius:9px;background:var(--raised);overflow:hidden}
+.lr .trk i{display:block;height:100%;border-radius:9px;background:var(--subtle)}
+.lr .trk i.on{background:var(--accent)}
+.lr span:last-child{width:32px;text-align:right;color:var(--muted);font-size:12px}
+.foot-n{margin-top:auto;color:var(--subtle);font-size:12px}
+.plist{display:flex;flex-direction:column;gap:12px;font-size:15px}
+.plist li{list-style:none;display:flex;align-items:flex-start;gap:10px}
+.plist .i{color:var(--accent);margin-top:3px}
+
+/* features */
+.feat{position:relative;display:flex;flex-direction:column;gap:48px;background:var(--panel);overflow:clip}
+.feat>*{position:relative;z-index:2}.feat>.glow{position:absolute;z-index:0;width:1100px;height:560px;left:50%;top:62%;transform:translate(-50%,-50%);background:radial-gradient(circle,var(--accent-tint) 0%,transparent 70%)}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.fc{display:flex;flex-direction:column;gap:10px;padding:28px;border-radius:16px;transition:border-color .3s,transform .3s}
+.fc:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c) 40%,transparent)}
+.fi{display:grid;place-items:center;width:44px;height:44px;margin-bottom:14px;border-radius:12px;background:color-mix(in srgb,var(--c) 14%,transparent);border:1px solid color-mix(in srgb,var(--c) 30%,transparent);color:var(--c);font-size:20px}
+.fgrid h3{font-size:19px;font-weight:600}
+.fgrid p{text-wrap:pretty;color:var(--muted);font-size:15px;line-height:1.55}
+
+/* security */
+.side-h{position:sticky;top:120px;align-self:flex-start;width:420px;flex-shrink:0;display:flex;flex-direction:column;gap:20px}
+
+/* pricing */
+.price{position:relative;display:flex;flex-direction:column;gap:48px;overflow:clip}.price>*{position:relative;z-index:2}.price>.glow{position:absolute;z-index:0;width:1200px;height:520px;left:50%;top:58%;transform:translate(-50%,-50%);background:radial-gradient(circle,color-mix(in srgb,var(--violet) 18%,transparent) 0%,transparent 70%)}
+.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tier{display:flex;flex-direction:column;gap:20px;padding:28px;border-radius:16px}
+.tier.hot{border-color:color-mix(in srgb,var(--c) 45%,transparent);box-shadow:0 0 60px color-mix(in srgb,var(--c) 14%,transparent)}
+.tier-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.tier h3{color:var(--c);font-size:24px;font-weight:700;letter-spacing:-.02em}
+.pick{padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c);font-size:12px;font-weight:600;white-space:nowrap}
+.tier .p{display:flex;align-items:baseline;gap:8px}
+.tier .p b{font-size:40px;font-weight:700;letter-spacing:-1px}
+.tier .p span{color:var(--subtle);font-size:15px}
+.tier p{min-height:48px;color:var(--muted);font-size:15px;line-height:1.55}
+.tier ul{list-style:none;display:flex;flex-direction:column;gap:12px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;line-height:1.5}
+.tier li{display:flex;gap:10px}
+.tier li .i{flex-shrink:0;width:18px;height:18px;padding:3px;margin-top:1px;border-radius:50%;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);stroke-width:3}
+.tier a{margin-top:auto;height:46px;display:flex;justify-content:center;align-items:center;border:1px solid var(--line);border-radius:999px;font-size:15px;font-weight:600;transition:background .2s,border-color .2s}
+.tier a:hover{border-color:color-mix(in srgb,var(--c) 50%,transparent)}
+.tier.hot a{background:var(--c);border-color:var(--c);color:#fff}
+.event{display:flex;align-items:center;justify-content:center;text-align:center;gap:12px;padding:20px;border-radius:12px;font-size:16px}
+.event .i{font-size:18px;color:var(--accent)}
+
+/* faq */
+.faq{display:flex;gap:80px;background:var(--panel)}
+.qlist{flex:1;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.fq{border-bottom:1px solid var(--line)}
+.fq summary{list-style:none;display:flex;align-items:center;gap:16px;padding:24px 0;font-size:18px;font-weight:500;cursor:pointer}
+.fq summary::-webkit-details-marker{display:none}
+.fq summary span{flex:1}
+.fq summary b{display:grid;place-items:center;flex-shrink:0;width:32px;height:32px;border-radius:50%;background:#ffffff0d;color:var(--muted);font-size:16px;transition:transform .3s cubic-bezier(.2,.8,.2,1),background .3s,color .3s}
+.fq:hover summary b{color:var(--white)}
+.fq[open] summary{font-weight:600}
+.fq[open] summary b{transform:rotate(45deg);background:var(--accent);color:#fff}
+.fq p{padding:0 56px 26px 0;max-width:640px;color:var(--muted);font-size:16px;line-height:1.65}
+/* smooth open/close where the browser supports animating details content */
+.fq::details-content{height:0;overflow:hidden;transition:height .35s cubic-bezier(.2,.8,.2,1),content-visibility .35s allow-discrete}
+.fq[open]::details-content{height:auto}
+
+/* final CTA + footer */
+.fin{position:relative;overflow:clip}
+.fin-card{position:relative;display:flex;justify-content:center;padding:120px 40px}
+.fin-mesh{position:absolute;inset:-20%;background:radial-gradient(40% 50% at 30% 40%,color-mix(in srgb,var(--accent) 34%,transparent),transparent 70%),radial-gradient(35% 45% at 72% 60%,color-mix(in srgb,var(--violet) 26%,transparent),transparent 70%),radial-gradient(30% 40% at 55% 20%,color-mix(in srgb,var(--sky) 16%,transparent),transparent 70%);filter:blur(30px);-webkit-mask-image:radial-gradient(closest-side,#000 40%,transparent);mask-image:radial-gradient(closest-side,#000 40%,transparent);animation:mesh 14s ease-in-out infinite alternate}
+@keyframes mesh{to{transform:translate(4%,-3%) rotate(8deg) scale(1.06)}}
+.fin-chips{position:absolute;inset:0;pointer-events:none}
+.fchip{position:absolute;transform:translate(-50%,-50%) rotate(var(--r));padding:8px 16px;border-radius:999px;background:color-mix(in srgb,var(--c) 14%,#ffffff08);border:1px solid color-mix(in srgb,var(--c) 34%,transparent);color:var(--c);font-size:17px;font-weight:700;white-space:nowrap;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:float 6s ease-in-out var(--d) infinite}
+@keyframes float{50%{translate:0 -12px}}
+.fin-b{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center}
+.fin .btn{height:58px;padding:0 30px;font-size:17px;margin-top:8px;box-shadow:0 12px 40px color-mix(in srgb,var(--accent) 35%,transparent)}
+.fin-ok{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;color:var(--muted);font-size:16px}
+.fin-ok li{display:flex;align-items:center;gap:6px}
+.fin-ok .i{color:var(--accent)}
+.footer{display:flex;align-items:center;gap:32px;padding:40px var(--gutter);border-top:1px solid var(--line);font-size:14px}
+.footer .brand{width:auto}.footer .brand img{height:17px}
+.footer nav{flex:1;display:flex;gap:28px;color:var(--muted)}
+
+/* glass surfaces: translucent fill, blur of what is behind, hairline top highlight */
+.glass,.card,.tier,.bub{background:linear-gradient(180deg,#ffffff0f,#ffffff05);border:1px solid transparent;backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%)}
+.bub{background:linear-gradient(180deg,#ffffff14,#ffffff08),#1d1d22b3;border-color:color-mix(in srgb,var(--lc,var(--accent)) 40%,transparent)}
+@media (max-width:1100px){
+  .mcp,.faq{flex-direction:column;align-items:stretch;gap:48px}
+  .mcp-copy,.side-h{width:auto}.side-h{position:static}
+  .chat{height:600px}
+  .tiers,.fgrid{grid-template-columns:repeat(2,1fr)}
+  .cards{grid-template-columns:1fr}
+  .ctx-top{flex-direction:column;align-items:flex-start;gap:24px}
+  .ctx-feats{justify-content:flex-start}
+  .conv{height:auto;min-height:0;padding:0}.stage{flex:none}.bub{display:none}
+}
+@media (max-width:860px){
+  .wrap{padding:72px 20px}
+  .replay{display:none}
+  .nav .brand{padding:10px 0}
+  .tb{gap:10px;padding:0 14px}.tb .dots{display:none}.tb-title{padding-left:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.rec{flex-shrink:0;white-space:nowrap}
+  .card{padding:24px 20px}.card-h h3{font-size:40px}.mock{height:auto}.st-b{flex-direction:column}.phone{width:auto}.stagebar{align-items:flex-start;gap:8px}.stagebar>small{white-space:nowrap;padding-top:6px}
+  .fc{display:grid;grid-template-columns:44px 1fr;column-gap:16px;row-gap:4px;align-items:start;padding:20px}.fi{grid-row:span 2;margin:0}.fgrid h3{font-size:17px;padding-top:1px}.fgrid p{font-size:14px}
+  .fin{padding-left:16px;padding-right:16px}.fin-card{padding:110px 0}.fchip{font-size:13px;padding:6px 12px}.fchip:nth-child(n+5){display:none}.fchip:nth-child(1){left:24%!important;top:9%!important}.fchip:nth-child(2){left:76%!important;top:8%!important}.fchip:nth-child(3){left:26%!important;top:92%!important}.fchip:nth-child(4){left:74%!important;top:91%!important}
+  .footer{flex-direction:column;align-items:flex-start;gap:16px}.footer nav{flex-wrap:wrap;gap:4px 20px}.footer nav a{padding:10px 0}.footer .brand{padding:12px 0}.event{flex-direction:column;gap:10px;padding:8px 0;font-size:15px;text-wrap:balance}
+  .mq-track{font-size:44px;letter-spacing:-1.5px}
+  .side{display:none}
+  .cx{grid-template-columns:1fr}.cx-col{padding:24px 20px 28px}.cx-col.no{border-right:0;border-bottom:1px solid var(--line)}
+  .tbar>span:not(:first-child),.tabs{display:none}
+  .tiers,.fgrid{grid-template-columns:1fr}
+  .footer{flex-wrap:wrap;padding:32px 20px}
+  .lead{font-size:17px}
+  .wid-title{white-space:normal}
+  .chat-h{padding:0 10px;gap:8px}.apps span{padding:0 8px;font-size:12px}.apps span::before{display:none}.conn{padding:0 10px;white-space:nowrap}
+  .tool-h small{display:none}.tool-h .st{white-space:nowrap}.chat-b{padding:18px}
+  .tb>span:nth-child(3){display:none}
+}
+p,li,.tr,.orig,.foot-n,.event,summary span{text-wrap:pretty}.lead{text-wrap:balance}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h7"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/><path d="M19 3v4M17 5h4"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+</svg>
+
+<nav class="nav">
+  <a class="brand" href="#"><img src="linqo-logo.png" alt="Linqo"></a>
+  <div class="links"><a href="#features">Features</a><a href="#cases">Use cases</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+  <div class="nav-act"><a href="#">Log in</a><span class="lang" aria-label="Language"><a href="hero-v3-kinetic.html" data-art="https://claude.ai/artifact/4mdBL1JzbJeer7VQbedTgr" hreflang="ko" lang="ko">KO</a><a href="hero-v3-kinetic-en.html" data-art="https://claude.ai/artifact/2iRxSMRCrpu9Nh5cPNcpVu" hreflang="en" lang="en" aria-current="true">EN</a></span><a class="btn btn-paper" href="#"><svg class="g" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg><span class="lf">Continue with Google</span><span class="ls">Get started</span></a></div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="bg" aria-hidden="true">
+    <span class="w1">Xin chào</span><span class="w2">Hello</span><span class="w3">안녕하세요</span><span class="w4">こんにちは</span><span class="w5">Hola</span>
+  </div>
+
+  <div class="copy">
+
+    <h1 class="headline" aria-label="Speak any language and get every name right in live translated notes">
+      <div class="row one" aria-hidden="true">
+        <span class="word split">Speak</span>
+        <span class="pill"><span class="wave"><b></b><b></b><b></b><b></b></span><span class="pill-txt" id="pillTxt"><span>Xin chào</span></span></span>
+        <span class="word split">any language</span>
+      </div>
+      <div class="row two" aria-hidden="true">
+        <span class="fix" id="fix"><span class="wrong">Two Ha</span><svg viewBox="0 0 16 16"><path fill="currentColor" d="M9.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 1 1-.708-.707L11.293 8.5H3.5a.5.5 0 1 1 0-1h7.793L9.146 5.354a.5.5 0 0 1 0-.708"/></svg><span class="right">Thu Hà</span></span>
+        <span class="word split">every name right</span>
+      </div>
+      <div class="row three" aria-hidden="true">
+        <span class="word split">Live</span>
+        <span class="tile"><span id="tileTxt">A</span></span>
+        <span class="word split">notes</span>
+      </div>
+    </h1>
+
+    <p class="sub">Mixed languages translated live into yours<br>Share names and terms up front and even words it has never heard come out right</p>
+    <div class="actions">
+      <div class="row-b">
+        <a class="btn btn-paper" href="#"><svg class="g" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Continue with Google</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mq"><div class="mq-track" id="mq"></div></div>
+
+<section class="wrap bt wid">
+  <div class="conv">
+  <div class="wid-head">
+    <h2 class="h2 wid-title">Many languages <span class="acc">one meeting</span></h2>
+    <p class="lead">Everyone speaks their own language and Linqo brings it onto one screen in yours</p>
+  </div>
+  <div class="stage">
+    <div class="glow"></div>
+    <div class="screen-fit"><div class="screen">
+      <div class="tb">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <span class="tb-title">Hai Phong shipping</span>
+        <span class="sub-txt" style="font-size:13px">3 attendees</span>
+        <span style="flex:1"></span>
+        <span class="rec"><i></i><b class="acc" style="font-weight:600">Recording</b><span class="mut">14:32</span></span>
+      </div>
+      <div class="sbody">
+        <div class="side">
+          <div><div class="mut" style="font-weight:600;letter-spacing:.025em">Context for this meeting</div><div class="sub-txt" style="margin-top:6px">Applied to notes and translation</div></div>
+          <div class="file"><svg class="i mut" style="font-size:18px"><use href="#i-file"/></svg><div><div style="font-weight:500">Nov shipping agenda.pdf</div><div class="sub-txt">4 names and terms found</div></div></div>
+          <div class="chips"><span class="chip">Nguyễn Thu Hà</span><span class="chip">Minh An Logistics</span><span class="chip">SKU-24B</span><span class="chip">Hai Phong Port</span></div>
+          <div class="mut" style="display:flex;align-items:center;gap:8px"><svg class="i"><use href="#i-plus"/></svg>Add a name or term</div>
+        </div>
+        <div class="tp">
+          <div class="lines">
+            <div class="ln"><div class="ln-in"><span class="av">TH</span><div class="lc"><div class="lm">Thu Hà <span class="tag" style="--lc:var(--mint)">VI</span><small>14:02</small></div><div class="orig">Chúng tôi cần gửi mẫu trước ngày 18</div><div class="tr">→ We need to send the samples before the 18th</div></div></div></div>
+            <div class="ln"><div class="ln-in"><span class="av">D</span><div class="lc"><div class="lm">David <span class="tag" style="--lc:var(--sky)">EN</span><small>14:05</small></div><div class="orig">The customs docs are ready</div><div class="tr">→ Original</div></div></div></div>
+            <div class="ln"><div class="ln-in"><span class="av">DK</span><div class="lc"><div class="lm">Doyun Kim <span class="tag" style="--lc:var(--accent)">KO</span><small>14:09</small></div><div class="orig">하이퐁 선적은 다음 주예요</div><div class="tr">→ Shipping from Hai Phong is next week</div></div></div></div>
+            <div class="ln"><div class="ln-in"><span class="av">W</span><div class="lc"><div class="lm">Wei <span class="tag" style="--lc:var(--coral)">ZH</span><small>14:11</small></div><div class="orig">我们能确定发货日期吗？</div><div class="tr">→ Can we lock in the ship date?</div></div></div></div>
+            <div class="ln"><div class="ln-in"><span class="av">S</span><div class="lc"><div class="lm">Sato <span class="tag" style="--lc:var(--pink)">JA</span><small>14:13</small></div><div class="orig">サンプルは私が送ります</div><div class="tr">→ I’ll send the samples</div></div></div></div>
+            <div class="ln"><div class="ln-in"><span class="av">L</span><div class="lc"><div class="lm">Lucía <span class="tag" style="--lc:var(--amber)">ES</span><small>14:15</small></div><div class="orig">Lo confirmo con el almacén</div><div class="tr">→ I’ll check the warehouse</div></div></div></div>
+          </div>
+          <div class="wave-row"><svg class="i acc"><use href="#i-mic"/></svg><div class="wbars" id="wbars"></div>Listening…</div>
+          <div class="tbar"><span class="mut">Translate to</span><span class="sel">English <svg class="i"><use href="#i-down"/></svg></span><span style="flex:1"></span><span class="sub-txt" style="font-size:13px">Extra languages (1–2s delay)</span><span class="tabs"><span>+ VI</span><span>+ KO</span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="bub" data-r="-6" style="--lc:var(--mint);left:-170px;top:56px"><div class="who"><b>VI</b>Thu Hà</div><p>Chúng tôi cần gửi mẫu trước ngày 18</p></div>
+    <div class="bub" data-r="5" style="--lc:var(--sky);right:-160px;top:84px"><div class="who"><b>EN</b>David</div><p>The customs docs are ready</p></div>
+    <div class="bub" data-r="4" style="--lc:var(--accent);left:-200px;top:50%"><div class="who"><b>KO</b>Doyun Kim</div><p>하이퐁 선적은 다음 주예요</p></div>
+    <div class="bub" data-r="-5" style="--lc:var(--coral);right:-190px;top:46%"><div class="who"><b>ZH</b>Wei</div><p>我们能确定发货日期吗？</p></div>
+    <div class="bub" data-r="-3" style="--lc:var(--pink);left:-110px;bottom:-34px"><div class="who"><b>JA</b>Sato</div><p>サンプルは私が送ります</p></div>
+    <div class="bub" data-r="6" style="--lc:var(--amber);right:-80px;bottom:-26px"><div class="who"><b>ES</b>Lucía</div><p>Lo confirmo con el almacén</p></div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="wrap ctx">
+  <div class="glow"></div>
+  <div class="ctx-top">
+  <div class="ctx-head">
+    <h2 class="h2">Share context first<br><span class="acc">get new names right</span></h2>
+    <p class="lead">Your files and notes teach it unfamiliar names and industry terms</p>
+  </div>
+    <ul class="ctx-feats">
+      <li style="--c:var(--sky)"><svg class="i"><use href="#i-upload"/></svg>Upload a file</li>
+      <li style="--c:var(--mint)"><svg class="i"><use href="#i-edit"/></svg>Or type them in</li>
+      <li style="--c:var(--amber)"><svg class="i"><use href="#i-globe"/></svg>Sharper translation</li>
+    </ul>
+  </div>
+  <div class="cx" id="cx">
+    <div class="cx-col no">
+      <div class="colh"><i style="background:#ff8a80"></i><span class="mut">Without context</span></div>
+      <div class="blk"><span class="cap">Transcript</span><p class="t19 mut">Let’s ask <span class="wr">new and two ha</span> to send <span class="wr">S.K.U. twenty-four bee</span> samples to <span class="wr">Min Anne Logistics</span> before the <span class="wr">high fong</span> shipment.</p></div>
+      <div class="blk"><span class="cap">Vietnamese</span><p class="t17 mut">Nhờ <span class="wr">new and two ha</span> gửi mẫu tới <span class="wr">Min Anne Logistics</span>…</p></div>
+      <div class="cx-foot"><svg class="i"><use href="#i-alert"/></svg>4 names and terms misheard</div>
+    </div>
+    <div class="cx-col yes">
+      <div class="colh"><i style="background:var(--accent)"></i>With context</div>
+      <div class="blk"><span class="cap">Transcript</span><p class="t19">Let’s ask <span class="fx" data-k="a" data-w="new and two ha">Thu Hà</span> to send <span class="fx" data-k="b" data-w="S.K.U. twenty-four bee">SKU-24B</span> samples to <span class="fx" data-k="c" data-w="Min Anne Logistics">Minh An Logistics</span> before the <span class="fx" data-k="d" data-w="high fong">Hải Phòng</span> shipment.</p></div>
+      <div class="blk"><span class="cap">Vietnamese</span><p class="t17">Nhờ chị <span class="fx" data-k="a" data-w="new and two ha">Thu Hà</span> gửi mẫu <span class="fx" data-k="b" data-w="S.K.U. twenty-four bee">SKU-24B</span> tới <span class="fx" data-k="c" data-w="Min Anne Logistics">Minh An Logistics</span> trước chuyến hàng <span class="fx" data-k="d" data-w="high fong">Hải Phòng</span></p></div>
+      <div class="cx-foot"><svg class="i"><use href="#i-check"/></svg><span><b class="cnt">4</b> names and terms applied</span></div>
+      <span class="scan" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
+
+<section class="wrap mcp">
+  <div class="glow"></div>
+  <div class="mcp-copy">
+    <div class="sec-head">
+      <h2 class="h2">The call ends<br><span class="acc">the work goes on</span></h2>
+      <p class="lead">Connect Linqo to ChatGPT or Claude and ask about past meetings with no copy and paste</p>
+    </div>
+    <div class="ask" id="ask">
+      <button type="button" aria-pressed="true" style="--b:#10a37f"><span class="q"><small>ChatGPT</small>Sum up Minh An shipping dates and owners<b><svg class="i"><use href="#i-up"/></svg></b></span></button>
+      <button type="button" aria-pressed="false" style="--b:#d97757"><span class="q"><small>Claude</small>Make practice questions from this month’s lectures<b><svg class="i"><use href="#i-up"/></svg></b></span></button>
+      <button type="button" aria-pressed="false" style="--b:#e4e4ea;--bt:var(--ink)"><span class="q"><small>Grok</small>Write a Vietnamese follow-up from yesterday’s call<b><svg class="i"><use href="#i-up"/></svg></b></span></button>
+    </div>
+  </div>
+  <div class="chat" id="chat">
+    <div class="chat-h">
+      <div class="apps"><span style="--b:#10a37f">ChatGPT</span><span style="--b:#d97757">Claude</span><span style="--b:#e4e4ea">Grok</span></div>
+      <span class="conn"><i></i>Linqo connected</span>
+    </div>
+    <div class="chat-b" id="chatBody"></div>
+    <div class="cin"><span id="cinText">Ask anything</span><b id="cinBtn"><svg class="i"><use href="#i-up"/></svg></b></div>
+  </div>
+</section>
+
+<section class="wrap bt uc" id="cases">
+  <div class="glow"></div>
+  <div class="uc-head mid">
+    <h2 class="h2">Meeting or lecture <span class="acc">a screen that fits</span></h2>
+    <p class="lead">The screen changes with how many people are speaking</p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-h"><span class="badge"><svg class="i"><use href="#i-users"/></svg>Many people speak</span><h3>Meetings</h3><p>Keep the thread even when everyone talks</p></div>
+      <div class="mock">
+        <div class="srcbar"><svg class="i"><use href="#i-monitor"/></svg>Recording Google Meet tab audio</div>
+        <div class="mfeed" id="mfeed">
+          <div class="ml"><span class="av">TH</span><div><small>Thu Hà · VI<i class="eq"><b></b><b></b><b></b></i></small><p>We need to send the samples before the 18th</p></div></div>
+          <div class="ml"><span class="av">DK</span><div><small>Doyun Kim · KO<i class="eq"><b></b><b></b><b></b></i></small><p>Hai Phong shipping date confirmed</p></div></div>
+          <div class="ml on"><span class="av">D</span><div><small>David · EN<i class="eq"><b></b><b></b><b></b></i></small><p>The customs docs are ready</p></div></div>
+        </div>
+        <span class="foot-n">When it ends you get a summary and 3 action items</span>
+      </div>
+      <ul class="plist"><li><svg class="i"><use href="#i-check"/></svg>Multilingual meetings on one screen</li><li><svg class="i"><use href="#i-check"/></svg>Records Google Meet and Zoom audio</li><li><svg class="i"><use href="#i-check"/></svg>Notes who said what</li><li><svg class="i"><use href="#i-check"/></svg>Summary and action items afterward</li></ul>
+    </div>
+    <div class="card">
+      <div class="card-h"><span class="badge"><svg class="i"><use href="#i-mic"/></svg>One speaks and everyone listens</span><h3>Lectures · Events</h3><p>One voice on stage in every listener’s language</p></div>
+      <div class="mock aud">
+        <div class="stagebar"><span class="pres-row"><span class="av">TQ</span><span>Prof. Trần Minh Quân<small><i class="live"></i>Presenting · Main Hall</small></span></span><small><b class="aud-n">245</b> listening</small></div>
+        <div class="st-b">
+          <div class="st-l">
+            <span class="sub-txt" style="font-size:12px;font-weight:600;letter-spacing:.025em">Languages the audience chose</span>
+            <div class="lr"><span>Tiếng Việt</span><span class="trk"><i style="width:52%;background:var(--mint)"></i></span><span>128</span></div>
+            <div class="lr"><span>English</span><span class="trk"><i style="width:26%;background:var(--sky)"></i></span><span>64</span></div>
+            <div class="lr"><span>한국어</span><span class="trk"><i style="width:17%;background:var(--accent)"></i></span><span>41</span></div>
+            <div class="lr"><span>日本語</span><span class="trk"><i style="width:5%;background:var(--pink)"></i></span><span>12</span></div>
+            <span class="join"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3zm2 2v4h4V5zm8-2h8v8h-8zm2 2v4h4V5zM3 13h8v8H3zm2 2v4h4v-4zm8-2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm2 2h2v2h-2zm-6 2h2v2h-2zm4 0h2v2h-2zm2 2h2v2h-2zm-4 0h2v2h-2z"/></svg>Join by QR with no sign-up</span>
+          </div>
+          <div class="phone"><span class="notch"></span><span class="lc2" style="background:color-mix(in srgb,var(--mint) 16%,transparent);color:var(--mint)">Tiếng Việt</span><span class="old">Hôm nay chúng ta học về Transformer</span><span class="new">RLHF giúp mô hình trả lời tốt hơn</span></div>
+        </div>
+      </div>
+      <ul class="plist"><li><svg class="i"><use href="#i-check"/></svg>1 presenter + audience screens</li><li><svg class="i"><use href="#i-check"/></svg>Audience joins by link or QR without signing up</li><li><svg class="i"><use href="#i-check"/></svg>Each listener picks a language (up to 4 per session)</li><li><svg class="i"><use href="#i-check"/></svg>Questions go live after approval</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="wrap feat" id="features">
+  <div class="glow"></div>
+  <div class="sec-head mid"><h2 class="h2">Everything from notes to next steps</h2><p class="lead">One app for during and after every meeting</p></div>
+  <div class="fgrid">
+    <div class="fc glass" style="--c:var(--accent)"><span class="fi"><svg class="i"><use href="#i-mic"/></svg></span><h3>Live transcription</h3><p>Words appear the moment they’re spoken so nothing important slips by</p></div>
+    <div class="fc glass" style="--c:var(--sky)"><span class="fi"><svg class="i"><use href="#i-globe"/></svg></span><h3>Live translation</h3><p>Detects each language even when mixed and translates into the one you want</p></div>
+    <div class="fc glass" style="--c:var(--amber)"><span class="fi"><svg class="i"><use href="#i-list"/></svg></span><h3>AI summary · Action items</h3><p>Even long meetings wrap up into a clean summary and to-do list</p></div>
+    <div class="fc glass" style="--c:var(--violet)"><span class="fi"><svg class="i"><use href="#i-spark"/></svg></span><h3>Ask your session</h3><p>Ask “What did they just say?” and get an answer grounded in the notes</p></div>
+    <div class="fc glass" style="--c:var(--mint)"><span class="fi"><svg class="i"><use href="#i-search"/></svg></span><h3>Search anytime</h3><p>Past meetings and lectures live in one place ready when you need them</p></div>
+    <div class="fc glass" style="--c:var(--pink)"><span class="fi"><svg class="i"><use href="#i-link"/></svg></span><h3>Share by link</h3><p>One link shares the notes so the whole team sees the same page</p></div>
+  </div>
+</section>
+
+<section class="wrap bt price" id="pricing">
+  <div class="glow"></div>
+  <div class="sec-head mid"><h2 class="h2">Start small and grow as you need</h2><p class="lead">Your first 30 minutes are free with no card required</p></div>
+  <div class="tiers">
+    <div class="tier glass" style="--c:var(--mint)"><div class="tier-h"><h3>Free</h3></div><div class="p"><b>$0</b><span>one-time trial</span></div><p>Try a real session first</p><ul><li><svg class="i"><use href="#i-check"/></svg>About 30 min of recording</li><li><svg class="i"><use href="#i-check"/></svg>30-min event demo for 5 people</li><li><svg class="i"><use href="#i-check"/></svg>Up to 30 min per session</li><li><svg class="i"><use href="#i-check"/></svg>Start without a card</li></ul><a href="#">Get started</a></div>
+    <div class="tier glass hot" style="--c:var(--accent)"><div class="tier-h"><h3>Pro</h3><span class="pick">Best for regular use</span></div><div class="p"><b>$29</b><span>/ month</span></div><p>Built for regular meetings</p><ul><li><svg class="i"><use href="#i-check"/></svg>About 50 hours of recording</li><li><svg class="i"><use href="#i-check"/></svg>Up to 120 min per session</li><li><svg class="i"><use href="#i-check"/></svg>Usage fully refilled every month</li><li><svg class="i"><use href="#i-check"/></svg>Unused add-ons roll over</li></ul><a href="#">Get started</a></div>
+    <div class="tier glass" style="--c:var(--pink)"><div class="tier-h"><h3>Premium</h3></div><div class="p"><b>$100</b><span>/ month</span></div><p>For frequent sessions</p><ul><li><svg class="i"><use href="#i-check"/></svg>About 180 hours of recording</li><li><svg class="i"><use href="#i-check"/></svg>Up to 120 min per session</li><li><svg class="i"><use href="#i-check"/></svg>Usage fully refilled every month</li><li><svg class="i"><use href="#i-check"/></svg>Unused add-ons roll over</li></ul><a href="#">Get started</a></div>
+    <div class="tier glass" style="--c:var(--amber)"><div class="tier-h"><h3>Max</h3></div><div class="p"><b>$200</b><span>/ month</span></div><p>Maximum usage for power users</p><ul><li><svg class="i"><use href="#i-check"/></svg>About 360 hours of recording</li><li><svg class="i"><use href="#i-check"/></svg>Up to 120 min per session</li><li><svg class="i"><use href="#i-check"/></svg>Usage fully refilled every month</li><li><svg class="i"><use href="#i-check"/></svg>Unused add-ons roll over</li></ul><a href="#">Get started</a></div>
+  </div>
+  <div class="event"><svg class="i"><use href="#i-users"/></svg>Audiences join without signing up and up to 4 languages per session cost nothing extra</div>
+</section>
+
+<section class="wrap faq" id="faq">
+  <div class="side-h"><h2 class="h2">Questions</h2><p class="lead">The ones people ask most before they start</p></div>
+  <div class="qlist">
+    <details class="fq" name="faq" open><summary><span>Can I try it for free?</span><b><svg class="i"><use href="#i-plus"/></svg></b></summary><p>Your first 30 minutes are free<br>Start right away with your Google account and no card</p></details>
+    <details class="fq" name="faq"><summary><span>Does it record Zoom or Google Meet calls?</span><b><svg class="i"><use href="#i-plus"/></svg></b></summary><p>It records audio from Google Meet and Zoom calls in your browser</p></details>
+    <details class="fq" name="faq"><summary><span>How do I add context?</span><b><svg class="i"><use href="#i-plus"/></svg></b></summary><p>Upload an agenda or type in names and terms before the meeting<br>They carry straight into notes and translation</p></details>
+    <details class="fq" name="faq"><summary><span>Does it recognize Vietnamese accurately?</span><b><svg class="i"><use href="#i-plus"/></svg></b></summary><p>It recognizes any language including Vietnamese<br>Unfamiliar names and terms get even more accurate with context</p></details>
+    <details class="fq" name="faq"><summary><span>Can people speak several languages at once?</span><b><svg class="i"><use href="#i-plus"/></svg></b></summary><p>Linqo detects each language and transcribes it then translates into yours</p></details>
+    <details class="fq" name="faq"><summary><span>How do I connect ChatGPT or Claude?</span><b><svg class="i"><use href="#i-plus"/></svg></b></summary><p>Connect Linqo to your AI and it answers from past meetings with no copying</p></details>
+    <details class="fq" name="faq"><summary><span>Does the audience need to sign up?</span><b><svg class="i"><use href="#i-plus"/></svg></b></summary><p>No sign-up needed for the audience<br>They join right away by link or QR</p></details>
+    <details class="fq" name="faq"><summary><span>How is my recording data handled?</span><b><svg class="i"><use href="#i-plus"/></svg></b></summary><p>Video is never stored and only audio is used for recognition<br>External AI gets read-only access only when you approve it</p></details>
+  </div>
+</section>
+
+<section class="wrap fin">
+  <div class="fin-card">
+    <div class="fin-mesh" aria-hidden="true"></div>
+    <div class="fin-chips" aria-hidden="true"><span class="fchip" style="--c:var(--mint);left:8%;top:18%;--r:-6deg;--d:0.0s">Xin chào</span><span class="fchip" style="--c:var(--sky);left:82%;top:14%;--r:5deg;--d:0.7s">Hello</span><span class="fchip" style="--c:var(--pink);left:13%;top:72%;--r:4deg;--d:1.4s">こんにちは</span><span class="fchip" style="--c:var(--accent);left:78%;top:72%;--r:-4deg;--d:2.1s">안녕하세요</span><span class="fchip" style="--c:var(--amber);left:30%;top:88%;--r:-3deg;--d:2.8s">Hola</span><span class="fchip" style="--c:var(--coral);left:90%;top:44%;--r:6deg;--d:3.5s">你好</span><span class="fchip" style="--c:var(--violet);left:62%;top:90%;--r:3deg;--d:4.2s">Bonjour</span><span class="fchip" style="--c:var(--lime);left:9%;top:48%;--r:-5deg;--d:4.9s">Hallo</span></div>
+    <div class="fin-b">
+      <h2 class="h2">Your next meeting <span class="acc">every name right</span></h2>
+      <ul class="fin-ok"><li><svg class="i"><use href="#i-check"/></svg>First 30 minutes free</li><li><svg class="i"><use href="#i-check"/></svg>No card required</li><li><svg class="i"><use href="#i-check"/></svg>Audience joins without signing up</li></ul>
+      <a class="btn btn-paper" href="#"><svg class="g" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Continue with Google</a>
+      
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <a class="brand" href="#"><img src="linqo-logo.png" alt="Linqo"></a>
+  <nav><a href="#features">Features</a><a href="#cases">Use cases</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#">Privacy Policy</a><a href="#">Terms</a></nav>
+  <span class="sub-txt">© 2026 Linqo</span>
+</footer>
+
+<button class="replay" id="replay" type="button">Replay</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(() => {
+  // language switch: sibling files locally, the matching published page elsewhere
+  if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) document.querySelectorAll(".lang a").forEach(a => { a.href = a.dataset.art; a.target = "_top"; });
+  // V3 marquee words, moving
+  const words = ["Xin chào","Hello","안녕하세요","こんにちは","你好","Hola","Bonjour","สวัสดี","Merhaba","Olá"];
+  const mq = document.getElementById("mq");
+  const tones = ["var(--mint)","var(--sky)","var(--accent)","var(--pink)","var(--amber)","var(--coral)","var(--violet)","var(--lime)","var(--white)","var(--sky)"];
+  mq.innerHTML = [...words, ...words].map((w, i) => `<span style="color:${tones[i % words.length]}">${w}</span><span class="dot">·</span>`).join("");
+  // live waveform in the meeting screen
+  const wb = document.getElementById("wbars");
+  wb.innerHTML = [8,14,22,12,18,24,10,16,20,9,14,6,12,18,10,6].map(h => `<b style="height:${h}px"></b>`).join("");
+
+  // split words into glyphs
+  document.querySelectorAll(".split").forEach(el => {
+    el.innerHTML = [...el.textContent].map(c => c === " " ? '<span class="ws"></span>' : `<span class="ch">${c}</span>`).join("");
+  });
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // context demo: scrolling greys out "without context" and lights up the corrected words "with context"
+  gsap.registerPlugin(ScrollTrigger);
+  {
+    const no = document.querySelector(".cx-col.no"), yes = document.querySelector(".cx-col.yes");
+    const fixes = gsap.utils.toArray(".cx-col.yes .fx");
+    // each corrected term starts as the misheard version and flips to the right one as context is applied
+    const cnt = yes.querySelector(".cnt");
+    const setFix = (el, ok) => {
+      if (el.classList.contains("ok") === ok && el.classList.contains("bad") !== ok) return;
+      el.textContent = ok ? el.dataset.r : el.dataset.w;
+      el.classList.toggle("ok", ok); el.classList.toggle("bad", !ok);
+      cnt.textContent = new Set(fixes.filter(f => f.classList.contains("ok")).map(f => f.dataset.k)).size;
+    };
+    fixes.forEach(f => { f.dataset.r = f.textContent; });
+    if (reduce) {
+      fixes.forEach(f => setFix(f, true));
+      gsap.set(no, { opacity: .4, filter: "grayscale(1)" });
+      gsap.set(yes, { "--on": 1 });
+      gsap.set(fixes, { "--g": 1 });
+    } else {
+      // a scan passes over "with context", misheard terms flip to the right ones; "without context" greys out between ~45% and ~80% of the scroll
+      const scan = yes.querySelector(".scan");
+      fixes.forEach(f => setFix(f, false));
+      const tl = gsap.timeline({ scrollTrigger: { trigger: "#cx", start: "top 75%", end: "bottom 15%", scrub: 1, refreshPriority: -1 } })
+        .fromTo(scan, { y: -120, autoAlpha: 0 }, { y: () => yes.offsetHeight, autoAlpha: 1, duration: 1.2, ease: "none" }, .1)
+        .to(scan, { autoAlpha: 0, duration: .15 }, 1.15);
+      fixes.forEach((f, i) => tl.fromTo({ p: 0 }, { p: 0 }, { p: 1, duration: .1, onUpdate() { setFix(f, this.progress() >= .5); } }, .25 + i * .12));
+      tl.fromTo(fixes, { "--g": 0 }, { "--g": 1, duration: .4, stagger: .12, ease: "power1.out" }, .32)
+        .fromTo(yes, { "--on": 0 }, { "--on": 1, duration: 1.2, ease: "none" }, .3)
+        .fromTo(no, { opacity: 1, filter: "grayscale(0)", scale: 1 }, { opacity: .35, filter: "grayscale(1)", scale: .985, duration: 1.05, ease: "power1.inOut" }, 1.35)
+        .to({}, { duration: .6 });
+    }
+  }
+
+  // MCP demo: a prompt is sent to an AI app, which calls Linqo, finds meetings and answers
+  {
+    const scenes = [
+      { app: 0, q: "Sum up Minh An shipping dates and owners", tool: "Search meetings", arg: "Minh An Logistics · last week",
+        hits: [["Hai Phong shipping weekly", "Oct 29"], ["Minh An kickoff", "Oct 22"]],
+        a: "Shipping is set for Nov 18 from Hai Phong and Thu Hà will send the samples",
+        list: ["Shipping: Nov 18 · Hai Phong Port · Minh An Logistics", "SKU-24B samples: Thu Hà"], src: ["Oct 29 meeting 14:32"] },
+      { app: 1, q: "Make practice questions from this month’s lectures", tool: "Load lecture notes", arg: "Intro to AI · November",
+        hits: [["Intro to AI week 3 Transformer", "Nov 4"], ["Intro to AI week 4 RLHF", "Nov 11"]],
+        a: "Here are 10 practice questions based on two lectures",
+        list: ["1. Explain how self-attention captures context", "2. Describe step by step how RLHF improves responses", "… and 8 more"], src: ["Week 3 lecture", "Week 4 lecture"] },
+      { app: 2, q: "Write a Vietnamese follow-up from yesterday’s call", tool: "Read transcript", arg: "Hai Phong shipping weekly · yesterday",
+        hits: [["Hai Phong shipping weekly", "Yesterday · 42 min"]],
+        a: "Chào chị Thu Hà, cảm ơn chị đã tham gia cuộc họp hôm qua",
+        list: ["Lịch giao hàng: 18/11 tại cảng Hải Phòng", "Mẫu SKU-24B: chị Thu Hà phụ trách gửi"], src: ["Yesterday’s meeting summary"] }
+    ];
+    const body = document.getElementById("chatBody"), cin = document.getElementById("cinText"), btn = document.getElementById("cinBtn");
+    const apps = document.querySelectorAll(".apps span"), asks = document.querySelectorAll("#ask button");
+    const icon = id => `<svg class="i"><use href="#${id}"/></svg>`;
+    let tl, auto = true, cur = 0;
+
+    const render = sc => {
+      body.innerHTML = `
+        <div class="ub">${sc.q}</div>
+        <div class="tool"><div class="tool-h"><span class="lq">L</span>Linqo · ${sc.tool}<small>${sc.arg}</small><span class="st"><span class="spin"></span>Searching</span></div>
+          <div class="tool-r">${sc.hits.map(h => `<div>${icon("i-cal")}${h[0]}<small>${h[1]}</small></div>`).join("")}</div></div>
+        <div class="ans"><p>${sc.a.split(" ").map(w => `<span class="w">${w} </span>`).join("")}</p>
+          <ul>${sc.list.map(l => `<li>${l}</li>`).join("")}</ul>
+          <div class="src">Sources ${sc.src.map(x => `<span>${x}</span>`).join("")}</div></div>`;
+    };
+    const done = st => { st.innerHTML = `${icon("i-check")}${st.dataset.n}`; st.style.color = "var(--accent)"; };
+
+    const play = i => {
+      cur = i;
+      const sc = scenes[i];
+      asks.forEach((b, k) => b.setAttribute("aria-pressed", String(k === i)));
+      apps.forEach((a, k) => a.classList.toggle("on", k === sc.app));
+      if (tl) tl.kill();
+      render(sc);
+      const st = body.querySelector(".st"); st.dataset.n = `${sc.hits.length} found`;
+      if (reduce) { done(st); cin.textContent = "Ask anything"; return; }
+      const ub = body.querySelector(".ub"), tool = body.querySelector(".tool"), toolR = body.querySelector(".tool-r"), rows = toolR.children;
+      const words = body.querySelectorAll(".ans .w"), rest = body.querySelectorAll(".ans ul, .src");
+      gsap.set([ub, tool, rows, words, rest], { autoAlpha: 0 });
+      gsap.set(toolR, { height: 0, paddingBottom: 0 }); // results open up once the search finishes
+      const typed = { n: 0 };
+      tl = gsap.timeline({ onComplete: () => { if (auto) gsap.delayedCall(1.8, () => auto && play((cur + 1) % scenes.length)); } })
+        .call(() => { cin.classList.add("typing"); })
+        .to(typed, { n: sc.q.length, duration: .9, ease: "none", onUpdate: () => { cin.textContent = sc.q.slice(0, Math.round(typed.n)); } })
+        .call(() => btn.classList.add("go"))
+        .call(() => { btn.classList.remove("go"); cin.classList.remove("typing"); cin.textContent = "Ask anything"; }, null, "+=.25")
+        .fromTo(ub, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: .35, ease: "power2.out" }, "<")
+        .fromTo(tool, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: .35, ease: "power2.out" }, "+=.35")
+        .call(() => done(st), null, "+=.9")
+        .to(toolR, { height: "auto", paddingBottom: 12, duration: .35, ease: "power2.out" }, "<")
+        .fromTo(rows, { autoAlpha: 0, x: -10 }, { autoAlpha: 1, x: 0, duration: .3, stagger: .15 }, "<.1")
+        .to(words, { autoAlpha: 1, duration: .05, stagger: .06 }, "+=.3")
+        .fromTo(rest, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: .3, stagger: .12 }, "+=.1")
+        .timeScale(2.5); // whole sequence runs 2.5x faster
+    };
+    asks.forEach((b, i) => b.addEventListener("click", () => { auto = false; play(i); }));
+    apps.forEach((a, k) => a.classList.toggle("on", k === scenes[0].app)); // empty chat until it scrolls into view
+    if (reduce) play(0);
+    else ScrollTrigger.create({ trigger: "#chat", start: "top 70%", once: true, refreshPriority: -1, onEnter: () => play(0) });
+  }
+
+  if (reduce) { document.getElementById("fix").style.setProperty("--strike", 1); return; }
+
+  const chars = gsap.utils.toArray(".headline .ch");
+  const shapes = gsap.utils.toArray(".pill, .tile");
+  const fix = document.getElementById("fix");
+
+  // 1. entrance: glyphs drop in with random tilt, shapes pop
+  function intro() {
+    gsap.killTweensOf([chars, shapes, fix, ".sub", ".actions"]);
+    const tl = gsap.timeline({ defaults: { ease: "back.out(1.7)" } });
+    tl.from(chars, {
+        yPercent: 120, autoAlpha: 0, scale: .55,
+        rotation: () => gsap.utils.random(-28, 28),
+        duration: .5, stagger: { each: .02, from: "start" }
+      })
+      .from(shapes, { scale: 0, rotation: -40, duration: .55, stagger: .12, ease: "elastic.out(1,.55)" }, "<.15")
+      .from(fix, { y: 24, autoAlpha: 0, rotation: 8, duration: .4 }, "<.15")
+      .from([".sub", ".actions"], { y: 20, autoAlpha: 0, duration: .45, stagger: .08, ease: "power3.out" }, "-=.4");
+    return tl;
+  }
+  intro();
+
+  // 2. waveform inside the greeting pill
+  gsap.utils.toArray(".wave b").forEach((b, i) => {
+    gsap.fromTo(b, { scaleY: .3 }, { scaleY: 1, duration: gsap.utils.random(.16, .3), repeat: -1, yoyo: true, ease: "sine.inOut", delay: i * .05 });
+  });
+
+  // 3. greeting pill cycles languages, width follows the word
+  const hellos = ["Xin chào", "Hello", "こんにちは", "Hola", "안녕하세요", "Bonjour", "你好", "Olá"];
+  const helloTones = ["#3ee0a8", "#38c6f4", "#ff6fae", "#ffb547", "#6b7bff", "#a98bff", "#ff7a5c", "#b8ef4a"];
+  const pillTxt = document.getElementById("pillTxt");
+  const measure = t => { const s = document.createElement("span"); s.textContent = t; s.style.visibility = "hidden"; pillTxt.appendChild(s); const w = s.offsetWidth; s.remove(); return w; };
+  let hi = 0;
+  gsap.set(pillTxt, { width: measure(hellos[0]) });
+  setInterval(() => {
+    const cur = pillTxt.querySelector("span:last-child");
+    hi = (hi + 1) % hellos.length;
+    const next = document.createElement("span"); next.textContent = hellos[hi]; pillTxt.appendChild(next);
+    gsap.timeline()
+      .to(cur, { yPercent: -110, autoAlpha: 0, duration: .25, ease: "power3.in", onComplete: () => cur.remove() })
+      .to(pillTxt, { width: measure(hellos[hi]), duration: .3, ease: "power3.inOut" }, 0)
+      .to(".pill", { "--pc": helloTones[hi], duration: .3, ease: "power2.inOut" }, 0)
+      .fromTo(next, { yPercent: 110, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: .32, ease: "back.out(2)" }, .14);
+  }, 1000);
+
+  // 4. tile flips through scripts
+  const glyphs = ["A", "가", "あ", "Ă", "中", "ก"];
+  const glyphTones = ["#38c6f4", "#6b7bff", "#ff6fae", "#3ee0a8", "#ff7a5c", "#ffb547"];
+  const tileTxt = document.getElementById("tileTxt");
+  let gi = 0;
+  gsap.timeline({ repeat: -1, repeatDelay: .45, delay: 1 })
+    .to(tileTxt, { rotationX: 90, duration: .14, ease: "power2.in", onComplete: () => { gi = (gi + 1) % glyphs.length; tileTxt.textContent = glyphs[gi]; gsap.to(".tile", { "--tc": glyphTones[gi], duration: .2 }); } })
+    .to(tileTxt, { rotationX: 0, duration: .24, ease: "back.out(2.5)" })
+    .to(".tile", { rotation: "+=8", duration: .13, yoyo: true, repeat: 1, ease: "power1.inOut" }, 0);
+
+  // 5. name correction: strike the wrong name, then the right one lands
+  const wrong = fix.querySelector(".wrong"), arrow = fix.querySelector("svg"), right = fix.querySelector(".right");
+  gsap.timeline({ repeat: -1, repeatDelay: 1.1, delay: 1.3 })
+    .set(fix, { "--strike": 0 })
+    .set([arrow, right], { autoAlpha: 0, x: -8 })
+    .to(fix, { "--strike": 1, duration: .28, ease: "power2.inOut" }, .3)
+    .to(arrow, { autoAlpha: 1, x: 0, duration: .2 }, "+=.05")
+    .to(right, { autoAlpha: 1, x: 0, duration: .3, ease: "back.out(2.5)" }, "-=.08")
+    .fromTo(".row.two .ch", { y: 0 }, { y: -10, duration: .12, stagger: .02, yoyo: true, repeat: 1, ease: "power2.out" }, "<");
+
+  // 6. background words drift; scroll pulls the rows apart (GSAP-style)
+  gsap.utils.toArray(".bg span").forEach((w, i) => {
+    gsap.to(w, { x: i % 2 ? -30 : 30, y: i % 2 ? 14 : -14, duration: 3.5 + i * .6, repeat: -1, yoyo: true, ease: "sine.inOut" });
+  });
+  gsap.to("#mq", { xPercent: -50, duration: 40, repeat: -1, ease: "none" });
+  gsap.utils.toArray("#wbars b").forEach((b, i) => gsap.to(b, { scaleY: .35, duration: gsap.utils.random(.3, .6), repeat: -1, yoyo: true, ease: "sine.inOut", delay: i * .05 }));
+
+  const mm = gsap.matchMedia();
+  mm.add("(min-width: 861px)", () => {
+    const st = { trigger: "#hero", start: "top top", end: "bottom top", scrub: .6 };
+    gsap.to(".row.one", { xPercent: -14, scrollTrigger: st });
+    gsap.to(".row.two", { xPercent: 10, scrollTrigger: st });
+    gsap.to(".row.three", { xPercent: -8, scrollTrigger: st });
+    gsap.to(".bg", { yPercent: 18, scrollTrigger: st });
+  });
+
+  // 7. convergence: chat bubbles float in, then each one is pulled into the meeting feed as the same message
+  mm.add("(min-width: 1101px)", () => {
+    const conv = document.querySelector(".conv");
+    const stage = conv.querySelector(".stage");
+    const wrap = stage.querySelector(".screen-fit");
+    const screen = wrap.querySelector(".screen");
+    const lines = screen.querySelector(".lines");
+    const bubs = gsap.utils.toArray(".stage .bub");
+    const rows = gsap.utils.toArray(".lines .ln");
+    const tilt = b => Number(b.dataset.r);
+
+    // shrink the mockup so title + mockup always fit one screen
+    const head = conv.querySelector(".wid-head");
+    const OVERHANG = 40; // bottom bubbles hang below the mockup
+    const fit = () => {
+      const cs = getComputedStyle(conv);
+      const avail = conv.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - head.offsetHeight - parseFloat(cs.rowGap) - OVERHANG;
+      const f = Math.min(1, avail / wrap.offsetHeight, (document.documentElement.clientWidth - 40) / (wrap.offsetWidth + 400)); // room for bubbles hanging off both sides
+      wrap.style.setProperty("--fit", f.toFixed(3));
+      stage.style.height = Math.round(wrap.offsetHeight * f + OVERHANG) + "px";
+    };
+    fit();
+    ScrollTrigger.addEventListener("refreshInit", fit);
+
+    // bubbles live inside the scaled wrapper, so everything is in its local (unscaled) layout units;
+    // new lines land at the bottom of the feed
+    const target = () => ({ x: screen.offsetLeft + lines.offsetLeft + lines.offsetWidth / 2, y: screen.offsetTop + lines.offsetTop + lines.offsetHeight - 70 });
+    const centerOf = b => ({ x: b.offsetLeft + b.offsetWidth / 2, y: b.offsetTop + b.offsetHeight / 2 });
+    const side = b => (centerOf(b).x < wrap.offsetWidth / 2 ? -1 : 1);
+
+    gsap.set(rows, { height: 0, autoAlpha: 0 });
+    // gentle idle bob on yPercent, separate from the scroll-driven x/y
+    bubs.forEach((b, i) => gsap.to(b, { yPercent: i % 2 ? 7 : -7, duration: 2.2 + i * .25, repeat: -1, yoyo: true, ease: "sine.inOut" }));
+
+    // a. bubbles drift in while the section scrolls into view
+    gsap.fromTo(bubs, {
+        x: (i, b) => side(b) * gsap.utils.random(140, 220), y: () => gsap.utils.random(40, 120),
+        rotation: (i, b) => tilt(b) * 3, autoAlpha: 0, scale: .9
+      }, {
+        x: 0, y: 0, rotation: (i, b) => tilt(b), autoAlpha: 1, scale: 1, stagger: .06, ease: "power2.out",
+        scrollTrigger: { trigger: conv, start: "top 85%", end: "top 72px", scrub: 1, invalidateOnRefresh: true }
+      });
+
+    // b. pinned: pulled in one by one along a curve, the same message appears in the feed
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: conv, start: "top 72px", end: "+=1100", pin: true, pinSpacing: true, scrub: 1, invalidateOnRefresh: true }
+    });
+    bubs.forEach((b, i) => {
+      const at = i * .45;
+      tl.fromTo(b, { x: 0 }, { x: () => target().x - centerOf(b).x, duration: .6, ease: "power2.in", immediateRender: false }, at)
+        .fromTo(b, { y: 0 }, { y: () => target().y - centerOf(b).y, duration: .6, ease: "back.in(1.4)", immediateRender: false }, at)
+        .fromTo(b, { scale: 1, rotation: tilt(b) }, { scale: .3, rotation: 0, duration: .6, ease: "power2.in", immediateRender: false }, at)
+        .fromTo(b, { autoAlpha: 1 }, { autoAlpha: 0, duration: .14, ease: "none", immediateRender: false }, at + .46)
+        .fromTo(rows[i], { height: 0, autoAlpha: 0 }, { height: "auto", autoAlpha: 1, duration: .22, ease: "power2.out", immediateRender: false }, at + .5)
+        .fromTo(screen, { scale: 1 }, { scale: 1.02, duration: .07, yoyo: true, repeat: 1, ease: "power1.out", immediateRender: false }, at + .55);
+    });
+    tl.to(".stage .glow", { scale: 1.12, opacity: 1, duration: 2.7, ease: "none" }, 0)
+      .to({}, { duration: .3 });
+
+    return () => {
+      ScrollTrigger.removeEventListener("refreshInit", fit);
+      stage.style.height = "";
+      wrap.style.removeProperty("--fit");
+    };
+  });
+
+  // use cases: cards rise in, then both mockups stay live while the section is on screen
+  if (!reduce) {
+    const feed = document.getElementById("mfeed"), aud = document.querySelector("#cases .aud-n");
+    const nums = [...document.querySelectorAll("#cases .lr span:last-child")];
+    const phone = document.querySelector("#cases .phone"), pOld = phone.querySelector(".old"), pNew = phone.querySelector(".new");
+    const said = [["TH", "Thu Hà · VI", "We’ll share the packing specs too"], ["S", "Sato · JA", "I’ll send the samples"], ["DK", "Doyun Kim · KO", "Let’s check again on Friday"],
+      ["D", "David · EN", "The customs docs are ready"], ["TH", "Thu Hà · VI", "We need to send the samples before the 18th"], ["DK", "Doyun Kim · KO", "Hai Phong shipping date confirmed"]];
+    const subs = ["Hôm nay chúng ta học về Transformer", "RLHF giúp mô hình trả lời tốt hơn", "Phản hồi của con người rất quan trọng", "Hãy xem ví dụ ở slide tiếp theo"];
+    const eq = '<i class="eq"><b></b><b></b><b></b></i>';
+    let si = 0, pi = 1, live = false, loop;
+    const words = el => { el.innerHTML = el.textContent.split(" ").map(w => `<span class="w">${w}</span>`).join(" "); return el.querySelectorAll(".w"); };
+    const speak = () => {
+      const [av, who, text] = said[si++ % said.length];
+      const row = document.createElement("div");
+      row.className = "ml on";
+      row.innerHTML = `<span class="av">${av}</span><div><small>${who}${eq}</small><p>${text}</p></div>`;
+      feed.querySelectorAll(".ml.on").forEach(r => r.classList.remove("on"));
+      const first = feed.firstElementChild;
+      feed.appendChild(row);
+      gsap.timeline()
+        .to(first, { height: 0, marginBottom: -10, autoAlpha: 0, duration: .4, ease: "power2.in", onComplete: () => first.remove() })
+        .fromTo(row, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: .4, ease: "power2.out" }, "<.1")
+        .fromTo(words(row.querySelector("p")), { autoAlpha: 0 }, { autoAlpha: 1, duration: .05, stagger: .09 }, "<.1");
+    };
+    const subtitle = () => {
+      const next = subs[pi++ % subs.length];
+      gsap.timeline()
+        .to([pOld, pNew], { y: -8, autoAlpha: 0, duration: .25, ease: "power1.in" })
+        .call(() => {
+          pOld.textContent = pNew.textContent; pNew.textContent = next;
+          gsap.set(pNew, { y: 0, autoAlpha: 1 });
+          gsap.fromTo(words(pNew), { autoAlpha: 0 }, { autoAlpha: 1, duration: .05, stagger: .08, delay: .1 });
+        })
+        .fromTo(pOld, { y: 8, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .3, ease: "power2.out" });
+      aud.textContent = +aud.textContent + gsap.utils.random(1, 3, 1);
+    };
+    const tick = () => { if (!live) return; speak(); subtitle(); loop = gsap.delayedCall(2.6, tick); };
+    const counts = { v: 0 };
+    gsap.timeline({ scrollTrigger: { trigger: "#cases .cards", start: "top 75%", once: true } })
+      .fromTo("#cases .card", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: .7, stagger: .15, ease: "power3.out" })
+      .fromTo("#cases .ml", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: .4, stagger: .18, ease: "power2.out" }, .35)
+      .fromTo("#cases .trk i", { scaleX: 0 }, { scaleX: 1, transformOrigin: "left center", duration: .8, stagger: .1, ease: "power3.out" }, .5)
+      .fromTo(counts, { v: 0 }, { v: 1, duration: .9, ease: "power2.out", onUpdate: () => {
+        aud.textContent = Math.round(245 * counts.v);
+        nums.forEach(n => { n.textContent = Math.round(+n.dataset.v * counts.v); });
+      } }, .5)
+      .fromTo(pNew, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: .4, ease: "power2.out" }, .9);
+    nums.forEach(n => { n.dataset.v = n.textContent; });
+    ScrollTrigger.create({ trigger: "#cases .cards", start: "top 80%", end: "bottom 10%",
+      onToggle: self => { live = self.isActive; loop?.kill(); if (live) loop = gsap.delayedCall(2.4, tick); } });
+  }
+
+  if (!reduce) gsap.fromTo("#features .fc", { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: .5, stagger: .06, ease: "power2.out", scrollTrigger: { trigger: "#features .fgrid", start: "top 80%", once: true } });
+
+  if (!reduce) gsap.timeline({ scrollTrigger: { trigger: ".fin-card", start: "top 75%", once: true } })
+    .fromTo(".fin-b > *", { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: .6, stagger: .1, ease: "power3.out" })
+    .fromTo(".fchip", { autoAlpha: 0, scale: .4 }, { autoAlpha: 1, scale: 1, duration: .6, stagger: .06, ease: "back.out(2)" }, .15);
+
+  document.getElementById("replay").addEventListener("click", () => { window.scrollTo({ top: 0 }); intro(); });
+})();
+
+</script>
+</body>
+</html>
