@@ -133,7 +133,7 @@ R = [
 ('무료로 써볼 수 있나요?','Can I try it for free?'),('네 처음 30분은 무료예요<br>카드 등록 없이 구글 계정으로 바로 시작해요','Your first 30 minutes are free<br>Start right away with your Google account and no card'),
 ('Zoom이나 Google Meet 회의도 기록되나요?','Does it record Zoom or Google Meet calls?'),
 ('맥락은 어떻게 넣나요?','How do I add context?'),('회의 전에 안건 파일을 올리거나 참석자 이름과 용어를 직접 적어 주세요<br>기록과 번역에 그대로 반영돼요','Upload an agenda or type in names and terms before the meeting<br>They carry straight into notes and translation'),
-('베트남어도 정확하게 인식하나요?','Does it recognize Vietnamese accurately?'),('네 베트남어를 포함해 어떤 언어든 인식해요<br>낯선 이름이나 용어는 맥락으로 알려 주면 더 정확해져요','It recognizes any language including Vietnamese<br>Unfamiliar names and terms get even more accurate with context'),
+('몇 가지 언어가 지원되나요?','How many languages are supported?'),('한국어·영어·일본어·중국어·베트남어 등 60여 개 언어를 지원해요','Over 60 languages including Korean&nbsp;· English&nbsp;· Japanese&nbsp;· Chinese&nbsp;· Vietnamese'),
 ('여러 언어로 동시에 말해도 되나요?','Can people speak several languages at once?'),('네 링코가 언어를 알아서 감지해 각 언어 그대로 기록하고 원하는 언어로 번역해요','Linqo detects each language and transcribes it then translates into yours'),
 ('ChatGPT·Claude 연결은 어떻게 하나요?','How do I connect ChatGPT or Claude?'),('쓰고 있는 AI에 링코를 연결하면 복사하지 않아도 AI가 지난 회의를 찾아 답해요','Connect Linqo to your AI and it answers from past meetings with no copying'),
 ('청중도 가입해야 하나요?','Does the audience need to sign up?'),('아니요 청중은 가입 없이 링크나 QR로 바로 참여해요','No sign-up needed for the audience<br>They join right away by link or QR'),
