@@ -663,8 +663,8 @@ a{color:inherit;text-decoration:none}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 (() => {
-  // language switch: sibling files locally, the matching published page elsewhere
-  if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) document.querySelectorAll(".lang a").forEach(a => { a.href = a.dataset.art; a.target = "_top"; });
+  // language switch: sibling files where the lab folder is served as is, the matching claude.ai preview elsewhere
+  if (!/^(localhost|127\.0\.0\.1)$|\.github\.io$|\.vercel\.app$/.test(location.hostname)) document.querySelectorAll(".lang a").forEach(a => { a.href = a.dataset.art; a.target = "_top"; });
   // V3 marquee words, moving
   const words = ["Xin chào","Hello","안녕하세요","こんにちは","你好","Hola","Bonjour","สวัสดี","Merhaba","Olá"];
   const mq = document.getElementById("mq");
