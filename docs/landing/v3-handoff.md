@@ -19,7 +19,11 @@ public/lab/
 ├─ hero-v3-kinetic.html      # ko: source of truth for layout, CSS and motion
 ├─ hero-v3-kinetic-en.html   # en: generated from ko, do not edit by hand
 ├─ fonts/PretendardVariable.woff2
-└─ linqo-logo.png
+├─ linqo-logo.png
+├─ og-ko.png, og-en.png   # 1200×630 social preview images
+├─ favicon.ico            # 16/32/48, the logo's Q on ink
+├─ apple-touch-icon.png   # 180×180
+└─ icon-512.png           # 512×512 source for manifests
 scripts/lab-ko-to-en.py      # builds the en file from ko with a string table
 ```
 
@@ -70,6 +74,7 @@ Copy rule: no periods or commas in marketing copy where avoidable.
 - **Links.** Every CTA is `href="#"`. Google buttons, login and pricing buttons → `AUTH_URL`; footer Privacy/Terms need real URLs.
 - **GSAP.** Use the installed `gsap` + `@gsap/react` (`useGSAP`) instead of the CDN, and scope/cleanup per component. Keep the reduced-motion branches.
 - **Availability.** Claims the team has not confirmed should go through `published()` with `availability: "verify"` (see `src/content/availability.ts`) so they never reach production unconfirmed.
+- **Metadata.** Each preview has title, description, Open Graph and Twitter tags pointing at absolute GitHub Pages URLs. In the app, use the Metadata API per locale (`openGraph.images` with `og-ko.png` / `og-en.png`, `metadataBase` set to the real domain). `src/app/favicon.ico` and `src/app/apple-icon.png` already use the new icon.
 - **`public/lab` is publicly served.** Remove it (or block it) once the port is live.
 
 ## Needs team confirmation before launch
