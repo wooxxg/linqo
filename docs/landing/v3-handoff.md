@@ -21,7 +21,7 @@ public/lab/
 ├─ fonts/PretendardVariable.woff2
 ├─ linqo-logo.png
 ├─ og-ko.png, og-en.png   # 1200×630 social preview images
-├─ favicon.ico            # 16/32/48, the logo's Q on ink
+├─ favicon.ico            # 16/32/48, the logo's L on ink
 ├─ apple-touch-icon.png   # 180×180
 └─ icon-512.png           # 512×512 source for manifests
 scripts/lab-ko-to-en.py      # builds the en file from ko with a string table
