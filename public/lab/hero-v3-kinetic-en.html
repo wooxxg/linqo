@@ -379,7 +379,7 @@ a{color:inherit;text-decoration:none}
 @media (max-width:1100px){
   .mcp,.faq{flex-direction:column;align-items:stretch;gap:48px}
   .mcp-copy,.side-h{width:auto}.side-h{position:static}
-  .chat{height:600px}
+  .chat{flex:none;height:600px}
   .tiers,.fgrid{grid-template-columns:repeat(2,1fr)}
   .cards{grid-template-columns:1fr}
   .ctx-top{flex-direction:column;align-items:flex-start;gap:24px}
@@ -407,6 +407,7 @@ a{color:inherit;text-decoration:none}
   .tool-h small{display:none}.tool-h .st{white-space:nowrap}.chat-b{padding:18px}
   .tb>span:nth-child(3){display:none}
 }
+@media (max-width:420px){.chat{height:660px}} /* narrow phones wrap the answers onto more lines */
 p,li,.tr,.orig,.foot-n,.event,summary span{text-wrap:pretty}.lead{text-wrap:balance}
 </style>
 </head>
