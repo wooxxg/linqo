@@ -5,12 +5,14 @@ Treat them as a **visual and motion spec**: port them into the Next.js app (`src
 
 ## Preview
 
-| | Local (`pnpm dev`) | Hosted preview |
-|---|---|---|
-| ko | `/lab/hero-v3-kinetic.html` | https://claude.ai/artifact/4mdBL1JzbJeer7VQbedTgr |
-| en | `/lab/hero-v3-kinetic-en.html` | https://claude.ai/artifact/2iRxSMRCrpu9Nh5cPNcpVu |
+Public, no login needed (GitHub Pages, `gh-pages` branch):
 
-Hosted previews are private; ask the owner for access.
+- ko: https://wooxxg.github.io/linqo/ko
+- en: https://wooxxg.github.io/linqo/en
+
+Locally with `pnpm dev`: `/lab/hero-v3-kinetic.html` and `/lab/hero-v3-kinetic-en.html`.
+
+The `gh-pages` branch is a copy of `public/lab` plus the `/`, `/ko`, `/en` redirect pages; it does not update on its own when `main` changes.
 
 ## Files
 
@@ -70,7 +72,7 @@ Copy rule: no periods or commas in marketing copy where avoidable.
 ## Porting notes
 
 - **Copy → `src/content`.** Move every string into `ko.ts` and a new `en.ts` with the same shape; the en string table in `scripts/lab-ko-to-en.py` is the ready-made translation. Demo data inside the JS (`said`, `subs`, chat `scenes`) belongs there too.
-- **Language routing.** The KO/EN switch currently links to the two preview files (and to the hosted previews off localhost). Replace with real locale routes (e.g. `/ko`, `/en`) and set `<html lang>` per locale.
+- **Language routing.** The KO/EN switch currently links to the sibling preview file (on localhost, `*.github.io` and `*.vercel.app`; elsewhere it falls back to the private claude.ai previews). Replace with real locale routes (e.g. `/ko`, `/en`) and set `<html lang>` per locale.
 - **Links.** Every CTA is `href="#"`. Google buttons, login and pricing buttons → `AUTH_URL`; footer Privacy/Terms need real URLs.
 - **GSAP.** Use the installed `gsap` + `@gsap/react` (`useGSAP`) instead of the CDN, and scope/cleanup per component. Keep the reduced-motion branches.
 - **Availability.** Claims the team has not confirmed should go through `published()` with `availability: "verify"` (see `src/content/availability.ts`) so they never reach production unconfirmed.
