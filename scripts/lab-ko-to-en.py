@@ -20,7 +20,7 @@ R = [
 ('<meta property="og:title" content="Linqo · 이름까지 정확한 실시간 통역 노트">','<meta property="og:title" content="Linqo · Live notes that get every name right">'),
 ('<meta property="og:description" content="어떤 언어가 섞여도 내 언어로 실시간 번역해요 참석자 이름과 전문용어를 미리 알려 주면 처음 듣는 단어도 정확하게요">','<meta property="og:description" content="Mixed languages translated live into yours with every name and term right">'),
 ('<meta property="og:url" content="https://wooxxg.github.io/linqo/lab/hero-v3-kinetic.html">','<meta property="og:url" content="https://wooxxg.github.io/linqo/lab/hero-v3-kinetic-en.html">'),
-('<meta property="og:image" content="https://wooxxg.github.io/linqo/lab/og-ko.png">','<meta property="og:image" content="https://wooxxg.github.io/linqo/lab/og-en.png">'),
+('<meta property="og:image" content="https://wooxxg.github.io/linqo/lab/og-ko.png?v=3">','<meta property="og:image" content="https://wooxxg.github.io/linqo/lab/og-en.png?v=3">'),
 ('<meta property="og:image:alt" content="어떤 언어로 말해도 이름까지 정확한 실시간 통역 노트">','<meta property="og:image:alt" content="Speak any language and get every name right in live notes">'),
 ('>기능</a>','>Features</a>'),('>사용 사례</a>','>Use cases</a>'),('>요금제</a>','>Pricing</a>'),('>로그인</a>','>Log in</a>'),
 ('구글로 시작하기</a>','Continue with Google</a>'),('>개인정보처리방침</a>','>Privacy Policy</a>'),('>이용약관</a>','>Terms</a>'),
